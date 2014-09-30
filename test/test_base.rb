@@ -63,6 +63,16 @@ class TestBase < Test::Unit::TestCase
           assert !Obscenity::Base.profane?('biatch')
         end
       end
+      context "with no boundaries" do
+        setup {
+          Obscenity.configure do |config|
+            config.no_boundaries = true
+          end
+        }
+        should "find profane values hidden in strings" do
+          assert Obscenity::Base.profane?('assmaster3000')
+        end
+      end
     end
     context "with whitelist" do
       context "without custom blacklist config" do
